@@ -1,0 +1,44 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { /* light */
+  --bg: 248 250 252; --surface: 255 255 255; --fg: 11 15 25; --muted: 71 85 105; --line: 203 213 225; --link: 29 78 216;
+}
+.dark { /* default: midnight */
+  --bg: 11 15 25; --surface: 17 24 39; --fg: 241 245 249; --muted: 148 163 184; --line: 31 42 68; --link: 96 165 250;
+}
+
+@layer base {
+  html { scroll-behavior: smooth; }
+  body { @apply bg-bg font-sans text-fg antialiased; }
+  :focus-visible { @apply outline-none ring-2 ring-cobalt ring-offset-2 ring-offset-bg; }
+  a { @apply text-link underline-offset-4 hover:underline; }
+  @media (prefers-reduced-motion: reduce) { * { animation-duration: .01ms !important; transition-duration: .01ms !important; scroll-behavior: auto !important; } }
+}
+
+@layer components {
+  .btn { @apply inline-flex min-h-[44px] min-w-[44px] items-center justify-center gap-2 rounded-xl px-5 text-sm font-semibold no-underline transition active:scale-[.98] disabled:cursor-not-allowed disabled:opacity-60; }
+  .btn-primary { @apply btn bg-cobalt text-white hover:bg-cobalt-deep hover:no-underline; }
+  .btn-cta { @apply btn bg-lime text-midnight hover:bg-lime-soft hover:no-underline; }
+  .btn-ghost { @apply btn border border-line bg-transparent text-fg hover:border-cobalt hover:bg-cobalt/10 hover:no-underline; }
+  .btn-danger { @apply btn bg-red-600 text-white hover:bg-red-700; }
+  .card { @apply rounded-2xl border border-line bg-surface p-5 shadow-sm transition hover:border-cobalt/60 sm:p-6; }
+  .card-static { @apply rounded-2xl border border-line bg-surface p-5 sm:p-6; }
+  .input { @apply min-h-[44px] w-full rounded-xl border border-line bg-bg px-4 text-base text-fg placeholder:text-muted sm:text-sm; }
+  .input-bad { @apply border-red-500; }
+  .input-ok { @apply border-lime-soft; }
+  .label { @apply mb-1.5 block text-sm font-medium; }
+  .page { @apply mx-auto w-full max-w-6xl px-4 py-8 sm:px-6 sm:py-12; }
+  .h1 { @apply text-2xl font-bold tracking-tight sm:text-4xl; }
+  .prose-legal { @apply max-w-3xl space-y-4 leading-relaxed text-muted [&_h2]:mt-8 [&_h2]:text-xl [&_h2]:font-semibold [&_h2]:text-fg [&_li]:ml-5 [&_li]:list-disc; }
+}
+
+@media print {
+  .no-print, header, footer, nav, button, [data-floating] { display: none !important; }
+  html, body { background: #fff !important; color: #000 !important; }
+  .card, .card-static { border: 1px solid #999 !important; background: #fff !important; box-shadow: none !important; }
+  table { width: 100%; border-collapse: collapse; font-size: 11pt; }
+  th, td { border: 1px solid #999; padding: 4px 8px; color: #000 !important; }
+  a { color: #000 !important; text-decoration: none; }
+}
