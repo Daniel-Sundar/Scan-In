@@ -18,15 +18,15 @@ export default async function Home() {
   const user = await getSessionUser();
   return (
     <div>
-      <section className="bg-midnight text-white">
-        <div className="mx-auto grid max-w-6xl gap-10 px-4 py-16 sm:px-6 sm:py-24 lg:grid-cols-2 lg:items-center">
+      <section className="relative">
+        <div className="mx-auto grid max-w-7xl gap-10 px-4 py-16 sm:px-6 sm:py-24 lg:px-8 lg:grid-cols-2 lg:items-center">
           <div>
-            <p className="mb-3 inline-block rounded-full border border-cobalt px-3 py-1 text-xs font-semibold text-cobalt-light">Exam hall attendance</p>
-            <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl">Take attendance with a <span className="text-lime">single scan.</span></h1>
-            <p className="mt-4 max-w-lg text-lg text-slate-300">ScanIn gives invigilators a fast, secure barcode scanner and gives administrators a live view of every hall.</p>
+            <p className="badge-upcoming mb-4 font-mono uppercase tracking-widest">Exam hall attendance</p>
+            <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl">Take attendance with a <span className="bg-gradient-to-r from-blue-600 to-sky-400 bg-clip-text text-transparent">single scan.</span></h1>
+            <p className="mt-4 max-w-lg text-lg text-muted">ScanIn gives invigilators a fast, secure barcode scanner and gives administrators a live view of every hall.</p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Link href={user ? '/dashboard' : '/login'} className="btn-cta">{user ? 'Open dashboard' : 'Sign in'}</Link>
-              <Link href="/contact" className="btn-ghost border-white/30 text-white">Contact us</Link>
+              <Link href={user ? '/dashboard' : '/login'} className="btn-primary">{user ? 'Open dashboard' : 'Sign in'}</Link>
+              <Link href="/contact" className="btn-ghost">Contact us</Link>
             </div>
           </div>
           <svg role="img" aria-label="Illustration of a phone scanning a student ID barcode" viewBox="0 0 400 300" className="mx-auto w-full max-w-md">
@@ -35,16 +35,16 @@ export default async function Home() {
             <path d="M152 78v34M160 78v34M170 78v34M176 78v34M188 78v34M196 78v34M208 78v34M216 78v34M228 78v34M240 78v34" stroke="#F1F5F9" strokeWidth="3" />
             <line x1="140" y1="95" x2="260" y2="95" stroke="#CCFF00" strokeWidth="2" />
             <rect x="140" y="160" width="120" height="14" rx="7" fill="#2563EB" /><rect x="140" y="185" width="80" height="10" rx="5" fill="#1F2A44" />
-            <circle cx="200" cy="240" r="16" fill="#CCFF00" />
+            <circle cx="200" cy="240" r="16" fill="#2563EB" />
           </svg>
         </div>
       </section>
       <section className="page">
-        <h2 className="text-2xl font-bold sm:text-3xl">Built for busy exam halls</h2>
+        <p className="eyebrow">Features</p><h2 className="text-2xl font-bold sm:text-3xl">Built for busy exam halls</h2>
         <div className="mt-6 grid gap-4 md:grid-cols-3">{FEATURES.map((f) => <div key={f.t} className="card"><h3 className="font-semibold">{f.t}</h3><p className="mt-2 text-sm text-muted">{f.d}</p></div>)}</div>
       </section>
       <section className="page pt-0">
-        <h2 className="mb-6 text-2xl font-bold sm:text-3xl">Frequently asked questions</h2>
+        <p className="eyebrow">FAQ</p><h2 className="mb-6 text-2xl font-bold sm:text-3xl">Frequently asked questions</h2>
         <Faq items={FAQ} />
       </section>
     </div>

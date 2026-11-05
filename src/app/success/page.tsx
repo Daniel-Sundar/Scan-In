@@ -16,7 +16,7 @@ export default async function Success({ searchParams }: { searchParams: Promise<
       <div role="status" className="grid h-20 w-20 place-items-center rounded-full bg-lime text-4xl text-midnight">✓</div>
       <h1 className="h1 mt-5">{m.title}</h1>
       <p className="mt-3 max-w-md text-muted">{m.body}</p>
-      <div className="mt-6 flex flex-col gap-3 sm:flex-row"><Link href={m.next.href} className="btn-cta">{m.next.label}</Link><Link href="/dashboard" className="btn-ghost">Dashboard</Link></div>
+      <div className="mt-6 flex flex-col gap-3 sm:flex-row"><Link href={m.next.href} className="btn-primary">{m.next.label}</Link><Link href="/dashboard" className="btn-ghost">Dashboard</Link></div>
     </div>
   );
 }

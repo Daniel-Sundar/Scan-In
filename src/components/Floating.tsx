@@ -11,7 +11,7 @@ export function ContactFab() {
   return (
     <>
       <button data-floating onClick={() => setOpen(true)} aria-label="Quick contact" aria-haspopup="dialog"
-        className="fixed bottom-6 right-4 z-40 grid h-14 w-14 place-items-center rounded-full bg-lime text-midnight shadow-xl transition hover:bg-lime-soft active:scale-95">
+        className="fixed bottom-6 right-6 z-40 grid h-14 w-14 place-items-center rounded-full border border-blue-400/30 bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-glow transition hover:from-blue-500 hover:to-blue-400 active:scale-95">
         <svg aria-hidden width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" /></svg>
       </button>
       <Modal open={open} onClose={() => setOpen(false)} title="Quick inquiry">
@@ -43,7 +43,7 @@ export function CookieBanner() {
   if (!shown) return null;
   return (
     <div data-floating role="dialog" aria-label="Cookie consent" aria-live="polite"
-      className="fixed inset-x-3 bottom-3 z-50 mx-auto max-w-2xl rounded-2xl border border-line bg-surface p-4 shadow-2xl sm:p-5">
+      className="fixed bottom-3 left-3 right-24 z-50 max-w-2xl rounded-2xl border border-line bg-surface/95 p-4 backdrop-blur-xl shadow-2xl sm:p-5">
       <p className="text-sm">We use only essential cookies to keep you signed in. Optional storage (campaign source tags) is off unless you allow it. See our <Link href="/cookies">Cookie Policy</Link>.</p>
       <div className="mt-3 flex flex-col gap-2 sm:flex-row">
         <button className="btn-ghost flex-1" onClick={() => choose('essential')}>Essential only</button>

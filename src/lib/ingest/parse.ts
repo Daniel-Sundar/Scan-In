@@ -61,9 +61,10 @@ async function pdfRows(buf: Uint8Array): Promise<string[][]> {
   for (let p = 1; p <= Math.min(pdf.numPages, 200); p++) {
     const content = await (await pdf.getPage(p)).getTextContent();
     type It = { s: string; x: number; y: number; w: number; h: number };
-    const items: It[] = content.items
-      .filter((i: any) => typeof i.str === 'string' && i.str.trim())
-      .map((i: any) => ({ s: i.str as string, x: i.transform[4], y: i.transform[5], w: i.width, h: i.height || Math.abs(i.transform[0]) || 10 }));
+    type Raw = { str: string; transform: number[]; width: number; height: number };
+    const items: It[] = (content.items as unknown as Raw[])
+      .filter((i) => typeof i.str === 'string' && i.str.trim())
+      .map((i) => ({ s: i.str as string, x: i.transform[4], y: i.transform[5], w: i.width, h: i.height || Math.abs(i.transform[0]) || 10 }));
     items.sort((a, b) => b.y - a.y || a.x - b.x);
     const lines: It[][] = [];
     for (const it of items) {

@@ -150,7 +150,7 @@ class Builder implements PromiseLike<any> {
         if (t === 'allocation_students') delete row.id;
         if (this.op === 'upsert' && this.onConflict) {
           const ex = store[t].find((o) => o[this.onConflict!] === row[this.onConflict!]);
-          if (ex) { const { id: _i, ...rest } = row; Object.assign(ex, rest); done.push(ex); continue; }
+          if (ex) { const rest = { ...row }; delete rest.id; Object.assign(ex, rest); done.push(ex); continue; }
         }
         if (conflict(row)) return err('23505');
         store[t].push(row); done.push(row);

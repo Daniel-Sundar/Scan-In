@@ -10,9 +10,11 @@ export function AddStudentForm() {
   const e = state.errors ?? {};
   return (
     <form action={action} className="space-y-3">
-      <Field label="Roll number (barcode value)" name="roll_no" required pattern="[A-Za-z0-9][A-Za-z0-9._\-]{2,39}" title="3-40 letters, digits or . _ -" error={e.roll_no} />
-      <Field label="Full name" name="full_name" required maxLength={120} error={e.full_name} />
-      <div className="grid gap-3 sm:grid-cols-2">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+        <Field label="Roll number (barcode value)" name="roll_no" required pattern="[A-Za-z0-9][A-Za-z0-9._\-]{2,39}" title="3-40 letters, digits or . _ -" error={e.roll_no} />
+        <Field label="Full name" name="full_name" required maxLength={120} error={e.full_name} />
+      </div>
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         <Field label="Department" name="department" maxLength={80} error={e.department} />
         <Field label="Year (1-8)" name="year" type="number" min={1} max={8} error={e.year} />
       </div>
@@ -27,7 +29,7 @@ export function WhitelistForm() {
   const [state, action] = useActionState(whitelistTeacher, initial);
   const e = state.errors ?? {};
   return (
-    <form action={action} className="space-y-3">
+    <form action={action} className="space-y-4">
       <Field label="Teacher email" name="email" type="email" required error={e.email} hint="Only this address will be able to register." />
       <Consent error={e.consent}>The teacher has agreed to an invigilator account being created for them.</Consent>
       <FormMessage state={state} />
@@ -52,18 +54,18 @@ export function AllocationForm({ teachers, departments }: { teachers: { id: stri
         </select>
         {e.teacher_id && <p role="alert" className="mt-1 text-xs text-red-500">{e.teacher_id}</p>}
       </div>
-      <div className="grid gap-3 sm:grid-cols-3">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
         <Field label="Exam code" name="exam_code" required maxLength={30} error={e.exam_code} />
-        <div className="sm:col-span-2"><Field label="Exam title" name="exam_title" required maxLength={120} error={e.exam_title} /></div>
+        <div className="md:col-span-2"><Field label="Exam title" name="exam_title" required maxLength={120} error={e.exam_title} /></div>
       </div>
-      <div className="grid gap-3 sm:grid-cols-2">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         <Field label="Exam date" name="exam_date" type="date" required error={e.exam_date} />
         <Field label="Hall" name="hall" required maxLength={60} error={e.hall} />
         <Field label="Access starts" name="starts" type="datetime-local" required error={e.starts} />
         <Field label="Access ends (auto-revokes)" name="ends" type="datetime-local" required error={e.ends} />
       </div>
       <fieldset className="space-y-3 rounded-xl border border-line p-4">
-        <legend className="px-2 text-sm font-medium">Student set</legend>
+        <legend className="px-2 text-xs font-semibold uppercase tracking-wider text-slate-900 dark:text-slate-200">Student set</legend>
         <div>
           <label htmlFor="department" className="label">By department</label>
           <select id="department" name="department" className="input" defaultValue="">
@@ -78,7 +80,7 @@ export function AllocationForm({ teachers, departments }: { teachers: { id: stri
         </div>
       </fieldset>
       <FormMessage state={state} />
-      <SubmitButton variant="btn-cta" pendingText="Creating…">Create allocation</SubmitButton>
+      <SubmitButton variant="btn-primary" pendingText="Creating…">Create allocation</SubmitButton>
     </form>
   );
 }

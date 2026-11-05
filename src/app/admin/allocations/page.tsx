@@ -1,6 +1,6 @@
 import { AllocationForm } from '@/components/admin/Forms';
 import { RevokeButton } from '@/components/admin/Lists';
-import { EmptyState } from '@/components/ui/static';
+import { EmptyState, LiveBadge, PageHeader } from '@/components/ui/static';
 import { requirePage } from '@/lib/auth/guards';
 import { createClient } from '@/lib/supabase/server';
 
@@ -18,23 +18,23 @@ export default async function Allocations() {
   /* eslint-disable @typescript-eslint/no-explicit-any */
   const rows = (allocs ?? []) as any[];
   const now = Date.now();
-  const status = (a: any) => a.revoked_at ? ['Revoked', 'bg-red-500 text-white'] : now < +new Date(a.starts_at) ? ['Upcoming', 'bg-cobalt text-white'] : now < +new Date(a.ends_at) ? ['Live', 'bg-lime text-midnight'] : ['Ended', 'bg-line text-muted'];
+  const status = (a: any) => a.revoked_at ? ['Revoked', 'badge-revoked'] : now < +new Date(a.starts_at) ? ['Upcoming', 'badge-upcoming'] : now < +new Date(a.ends_at) ? ['Live', 'badge-live'] : ['Ended', 'badge-ended'];
   const fmt = (s: string) => new Date(s).toLocaleString([], { dateStyle: 'medium', timeStyle: 'short' });
 
   return (
     <div className="page space-y-8">
-      <h1 className="h1">Allocations</h1>
-      <div className="grid gap-6 xl:grid-cols-[minmax(0,34rem)_1fr]">
-        <section className="card-static"><h2 className="mb-4 text-lg font-semibold">Assign a hall</h2>
+      <PageHeader eyebrow="Admin · Halls" title="Allocations" description="Give a teacher time-limited access to an exam hall." />
+      <div className="grid gap-6 xl:grid-cols-[minmax(0,36rem)_1fr]">
+        <section className="card-static"><p className="eyebrow">New</p><h2 className="mb-4 text-lg font-semibold">Assign a hall</h2>
           <AllocationForm teachers={teachers ?? []} departments={departments} /></section>
         <section>
-          <h2 className="mb-4 text-lg font-semibold">Recent allocations</h2>
+          <p className="eyebrow">History</p><h2 className="mb-4 text-lg font-semibold">Recent allocations</h2>
           {!rows.length ? <EmptyState title="No allocations yet" body="Create one to give a teacher time-limited access to a hall." /> : (
             <ul className="space-y-3">{rows.map((a) => { const [label, cls] = status(a); return (
               <li key={a.id} className="card-static flex flex-wrap items-center justify-between gap-3">
-                <div className="min-w-0"><p className="font-semibold">{a.exams?.code} · Hall {a.hall}</p>
+                <div className="min-w-0"><p className="font-semibold"><span className="badge-mono mr-2">{a.exams?.code}</span>Hall {a.hall}</p>
                   <p className="text-sm text-muted">{a.users?.full_name} · {fmt(a.starts_at)} → {fmt(a.ends_at)}</p></div>
-                <div className="flex items-center gap-2"><span className={`rounded-full px-3 py-1 text-xs font-bold ${cls}`}>{label}</span>
+                <div className="flex items-center gap-2">{label === 'Live' ? <LiveBadge /> : <span className={cls}>{label}</span>}
                   {(label === 'Live' || label === 'Upcoming') && <RevokeButton id={a.id} />}</div>
               </li>); })}</ul>)}
         </section>

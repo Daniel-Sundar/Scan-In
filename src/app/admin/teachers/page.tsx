@@ -1,7 +1,7 @@
 import { WhitelistForm } from '@/components/admin/Forms';
 import { RemoveWhitelistButton } from '@/components/admin/Lists';
 import { CopyButton } from '@/components/ui/Chrome';
-import { EmptyState } from '@/components/ui/static';
+import { EmptyState, PageHeader } from '@/components/ui/static';
 import { requirePage } from '@/lib/auth/guards';
 import { createClient } from '@/lib/supabase/server';
 
@@ -17,11 +17,11 @@ export default async function Teachers() {
   const registered = new Map((users ?? []).map((u: { email: string; full_name: string; is_active: boolean }) => [u.email.toLowerCase(), u]));
   return (
     <div className="page space-y-8">
-      <h1 className="h1">Teachers</h1>
-      <div className="grid gap-6 lg:grid-cols-[minmax(0,26rem)_1fr]">
-        <section className="card-static"><h2 className="mb-4 text-lg font-semibold">Approve an invigilator</h2><WhitelistForm /></section>
+      <PageHeader eyebrow="Admin · Access" title="Teachers" description="Approve invigilators before they can register." />
+      <div className="grid gap-6 lg:grid-cols-[minmax(0,28rem)_1fr]">
+        <section className="card-static"><p className="eyebrow">Whitelist</p><h2 className="mb-4 text-lg font-semibold">Approve an invigilator</h2><WhitelistForm /></section>
         <section>
-          <h2 className="mb-4 text-lg font-semibold">Whitelisted emails</h2>
+          <p className="eyebrow">Approved</p><h2 className="mb-4 text-lg font-semibold">Whitelisted emails</h2>
           {!wl?.length ? <EmptyState title="No teachers yet" body="Whitelist an email so the teacher can register." /> : (
             <ul className="space-y-2">{wl.map((w: { email: string }) => {
               const u = registered.get(w.email.toLowerCase());

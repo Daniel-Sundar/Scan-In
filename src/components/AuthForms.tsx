@@ -15,7 +15,7 @@ export function LoginForm({ next }: { next?: string }) {
       <Field label="Email" name="email" type="email" required autoComplete="email" error={e.email} />
       <Field label="Password" name="password" type="password" required minLength={8} autoComplete="current-password" error={e.password} />
       <FormMessage state={state} />
-      <SubmitButton variant="btn-cta" pendingText="Signing in…">Sign in</SubmitButton>
+      <SubmitButton variant="btn-primary" pendingText="Signing in…">Sign in</SubmitButton>
       <p className="text-sm text-muted">Invigilator with a whitelisted email? <Link href="/register">Create your account</Link></p>
     </form>
   );
@@ -32,7 +32,7 @@ export function RegisterForm() {
       <Field label="Password" name="password" type="password" required minLength={10} autoComplete="new-password" error={e.password} hint="10+ characters, with a letter and a number." />
       <Consent error={e.consent}>I have read the <Link href="/privacy">Privacy Policy</Link> and <Link href="/terms">Terms of Service</Link> and consent to my details being processed.</Consent>
       <FormMessage state={state} />
-      <SubmitButton variant="btn-cta" pendingText="Creating…">Create account</SubmitButton>
+      <SubmitButton variant="btn-primary" pendingText="Creating…">Create account</SubmitButton>
     </form>
   );
 }

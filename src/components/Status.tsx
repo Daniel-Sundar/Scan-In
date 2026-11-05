@@ -64,7 +64,7 @@ export function SessionWatcher() {
     <div role="alertdialog" aria-label="Session expired" className="fixed inset-x-3 top-3 z-[70] mx-auto max-w-lg rounded-2xl border border-cobalt bg-surface p-4 shadow-2xl">
       <p className="font-semibold">Your session has expired</p>
       <p className="mt-1 text-sm text-muted">For your security you were signed out. Sign in again to continue.</p>
-      <Link href="/login?reason=session_expired" className="btn-cta mt-3">Sign in again</Link>
+      <Link href="/login?reason=session_expired" className="btn-primary mt-3">Sign in again</Link>
     </div>
   );
 }

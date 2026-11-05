@@ -56,7 +56,9 @@ export function BulkUpload() {
       <div
         onDragOver={(e) => { e.preventDefault(); setDrag(true); }} onDragLeave={() => setDrag(false)}
         onDrop={(e) => { e.preventDefault(); setDrag(false); void pick(e.dataTransfer.files[0]); }}
-        className={`rounded-2xl border-2 border-dashed p-6 text-center transition ${drag ? 'border-lime bg-lime/10' : 'border-cobalt/60'}`}>
+        className={`dropzone group ${drag ? '!border-blue-400 !bg-blue-500/15' : ''}`}>
+        <svg aria-hidden width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"
+          className="mx-auto mb-3 text-blue-500 group-hover:animate-bounce-soft"><path d="M12 16V4M7 9l5-5 5 5" /><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3" /></svg>
         <p className="font-medium">Drop a file here, or</p>
         <label className="btn-primary mt-3 cursor-pointer">
           Choose file
@@ -65,9 +67,9 @@ export function BulkUpload() {
         <p className="mt-3 text-xs text-muted">CSV, Excel (.xlsx) or text-based PDF · up to 5 MB · columns: roll no, name, department, year</p>
       </div>
 
-      {stage === 'checking' && <p role="status" className="flex items-center gap-2 text-sm"><span className="h-4 w-4 animate-spin rounded-full border-2 border-cobalt border-t-lime" /> Checking {file?.name}…</p>}
-      {(stage === 'error') && <p role="alert" className="rounded-xl border border-red-500 bg-red-500/10 px-4 py-3 text-sm text-red-500">{msg}</p>}
-      {stage === 'done' && <p role="status" className="rounded-xl border border-lime-soft bg-lime/10 px-4 py-3 text-sm">✓ {msg}</p>}
+      {stage === 'checking' && <p role="status" className="flex items-center gap-2 text-sm"><span className="h-4 w-4 animate-spin rounded-full border-2 border-blue-500/30 border-t-blue-400" /> Checking {file?.name}…</p>}
+      {(stage === 'error') && <p role="alert" className="rounded-xl border border-rose-500/30 bg-rose-500/10 px-4 py-3 text-sm text-rose-500">{msg}</p>}
+      {stage === 'done' && <p role="status" className="rounded-xl border border-emerald-500/30 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-700 dark:text-emerald-400">✓ {msg}</p>}
 
       {pv && (stage === 'preview' || stage === 'importing') && (
         <div className="card-static space-y-4">
@@ -79,8 +81,8 @@ export function BulkUpload() {
           </div>
 
           {pv.errors.length > 0 && (
-            <details className="rounded-xl border border-red-500/50 p-3 text-sm" open>
-              <summary className="cursor-pointer font-medium text-red-500">{pv.errorCount} rows will be skipped</summary>
+            <details className="rounded-xl border border-rose-500/30 bg-rose-500/5 p-3 text-sm" open>
+              <summary className="cursor-pointer font-medium text-rose-500">{pv.errorCount} rows will be skipped</summary>
               <ul className="mt-2 max-h-40 space-y-1 overflow-auto text-muted">
                 {pv.errors.map((er, i) => <li key={i}>Row {er.row}: {er.message}</li>)}
               </ul>
@@ -90,13 +92,13 @@ export function BulkUpload() {
           <div className="overflow-x-auto">
             <table className="w-full text-left text-sm">
               <caption className="sr-only">First rows that will be imported</caption>
-              <thead className="text-muted"><tr><th className="py-2 pr-4">Roll no</th><th className="pr-4">Name</th><th className="pr-4">Dept</th><th>Year</th></tr></thead>
-              <tbody>{pv.sample.map((s) => <tr key={s.roll_no} className="border-t border-line"><td className="py-2 pr-4 font-mono">{s.roll_no}</td><td className="pr-4">{s.full_name}</td><td className="pr-4">{s.department ?? '—'}</td><td>{s.year ?? '—'}</td></tr>)}</tbody>
+              <thead className="font-mono text-[11px] uppercase tracking-wider text-muted"><tr><th className="py-2 pr-4">Roll no</th><th className="pr-4">Name</th><th className="pr-4">Dept</th><th>Year</th></tr></thead>
+              <tbody>{pv.sample.map((s) => <tr key={s.roll_no} className="border-t border-line"><td className="py-2 pr-4"><span className="badge-mono">{s.roll_no}</span></td><td className="pr-4">{s.full_name}</td><td className="pr-4">{s.department ?? '—'}</td><td>{s.year ?? '—'}</td></tr>)}</tbody>
             </table>
           </div>
 
           <div className="flex flex-col gap-3 sm:flex-row">
-            <button className="btn-cta" disabled={!pv.valid || stage === 'importing'} onClick={commit}>
+            <button className="btn-primary" disabled={!pv.valid || stage === 'importing'} onClick={commit}>
               {stage === 'importing' ? 'Importing…' : `Import ${pv.valid} students`}
             </button>
             <button className="btn-ghost" onClick={reset} disabled={stage === 'importing'}>Cancel</button>
@@ -110,8 +112,8 @@ export function BulkUpload() {
 
 function Num({ label, v, tone }: { label: string; v: number; tone?: 'ok' | 'bad' }) {
   return (
-    <div className="rounded-xl bg-bg p-3">
-      <p className={`text-2xl font-bold tabular-nums ${tone === 'bad' ? 'text-red-500' : ''}`}>{v}</p>
+    <div className="rounded-xl border border-line bg-bg/60 p-3">
+      <p className={`text-2xl font-bold tabular-nums ${tone === 'bad' ? 'text-rose-500' : tone === 'ok' ? 'text-emerald-500' : ''}`}>{v}</p>
       <p className="text-xs text-muted">{label}</p>
     </div>
   );

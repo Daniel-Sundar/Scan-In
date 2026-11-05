@@ -16,7 +16,7 @@ export default async function Forbidden({ searchParams }: { searchParams: Promis
       <p className="text-7xl font-extrabold text-amber-400">403</p>
       <h1 className="h1 mt-2">Permission denied</h1>
       <p className="mt-3 max-w-md text-muted">{REASONS[reason ?? ''] ?? 'You don’t have permission to view this page.'}</p>
-      <div className="mt-6 flex flex-col gap-3 sm:flex-row"><Link href="/dashboard" className="btn-cta">Back to dashboard</Link><Link href="/contact" className="btn-ghost">Request access</Link></div>
+      <div className="mt-6 flex flex-col gap-3 sm:flex-row"><Link href="/dashboard" className="btn-primary">Back to dashboard</Link><Link href="/contact" className="btn-ghost">Request access</Link></div>
     </div>
   );
 }

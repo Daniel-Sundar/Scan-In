@@ -45,8 +45,8 @@ export function Field({ label, name, error, hint, type = 'text', ...rest }: {
           </button>
         )}
       </div>
-      <p id={`${id}-msg`} aria-live="polite" className={`mt-1 min-h-[1.25rem] text-xs ${bad ? 'text-red-500' : 'text-muted'}`}>
-        {shown || hint || (v === 'ok' ? <span className="text-lime-soft dark:text-lime-soft">✓ Looks good</span> : '')}
+      <p id={`${id}-msg`} aria-live="polite" className={`mt-1 min-h-[1.25rem] text-xs ${bad ? 'text-rose-600 dark:text-rose-400' : 'text-slate-600 dark:text-slate-400'}`}>
+        {shown || hint || (v === 'ok' ? <span className="text-emerald-600 dark:text-emerald-400">✓ Looks good</span> : '')}
       </p>
     </div>
   );
@@ -57,7 +57,7 @@ export function Consent({ name = 'consent', error, children }: { name?: string; 
     <div>
       <label className="flex min-h-[44px] cursor-pointer items-start gap-3 text-sm">
         <input type="checkbox" name={name} required aria-invalid={!!error}
-          className="mt-0.5 h-5 w-5 shrink-0 rounded border-line accent-cobalt" />
+          className="mt-0.5 h-5 w-5 shrink-0 rounded border-line accent-blue-600" />
         <span>{children}</span>
       </label>
       {error && <p role="alert" className="mt-1 text-xs text-red-500">{error}</p>}

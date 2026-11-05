@@ -226,7 +226,7 @@ export default function Scanner({ allocationId }: { allocationId: string }) {
           ● {online ? 'Online' : 'Offline'}{pending > 0 && ` · ${pending} queued`}
         </span>
         <span className="font-mono tabular-nums" aria-label="Time remaining">{mmss}</span>
-        <span className="text-slate-300">{count} scanned</span>
+        <span className="text-slate-300"><strong className="tabular-nums text-lime-400">{count}</strong> scanned</span>
       </div>
 
       {/* viewport */}
@@ -249,19 +249,19 @@ export default function Scanner({ allocationId }: { allocationId: string }) {
 
         {phase === 'idle' && (
           <Overlay title="Ready to scan" body="Point the camera at a student's ID barcode.">
-            <button onClick={start} className="min-h-11 min-w-44 rounded-xl bg-[#CCFF00] px-6 font-bold text-[#0B0F19] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB]">Start scanning</button>
+            <button onClick={start} className="min-h-11 min-w-44 rounded-xl border border-blue-400/30 bg-gradient-to-r from-blue-600 to-blue-500 px-6 font-semibold text-white shadow-[0_0_20px_rgba(37,99,235,0.3)] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-300">Start scanning</button>
           </Overlay>
         )}
         {phase === 'starting' && <Overlay title="Starting camera…" body="Allow camera access if prompted." spinner />}
         {phase === 'denied' && (
           <Overlay title="Camera access blocked" body="Enable the camera for this site in your browser's address-bar settings, then retry.">
-            <button onClick={start} className="min-h-11 rounded-xl bg-[#2563EB] px-6 font-semibold focus:outline-none focus-visible:ring-2 focus-visible:ring-[#CCFF00]">Try again</button>
+            <button onClick={start} className="min-h-11 rounded-xl bg-[#2563EB] px-6 font-semibold focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-300">Try again</button>
           </Overlay>
         )}
         {phase === 'no-camera' && <Overlay title="No camera found" body="Use a device with a camera, or enter the roll number manually." />}
         {phase === 'error' && (
           <Overlay title="Scanner error" body="Something went wrong starting the camera.">
-            <button onClick={start} className="min-h-11 rounded-xl bg-[#2563EB] px-6 font-semibold focus:outline-none focus-visible:ring-2 focus-visible:ring-[#CCFF00]">Retry</button>
+            <button onClick={start} className="min-h-11 rounded-xl bg-[#2563EB] px-6 font-semibold focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-300">Retry</button>
           </Overlay>
         )}
         {phase === 'expired' && (
@@ -273,13 +273,13 @@ export default function Scanner({ allocationId }: { allocationId: string }) {
       <div className="flex gap-3">
         {torchSupported && (
           <button onClick={toggleTorch} aria-pressed={torchOn}
-            className={`min-h-11 flex-1 rounded-xl px-4 font-semibold focus:outline-none focus-visible:ring-2 focus-visible:ring-[#CCFF00] ${torchOn ? 'bg-[#CCFF00] text-[#0B0F19]' : 'bg-[#2563EB]'}`}>
+            className={`min-h-11 flex-1 rounded-xl px-4 font-semibold focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-300 ${torchOn ? 'bg-white text-[#0B0F19]' : 'bg-[#2563EB]'}`}>
             {torchOn ? 'Flash on' : 'Flash off'}
           </button>
         )}
         {active && (
           <button onClick={() => { void stop(); setPhase('idle'); }}
-            className="min-h-11 flex-1 rounded-xl border border-[#2563EB] px-4 font-semibold focus:outline-none focus-visible:ring-2 focus-visible:ring-[#CCFF00]">
+            className="min-h-11 flex-1 rounded-xl border border-[#2563EB] px-4 font-semibold focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-300">
             Stop
           </button>
         )}
@@ -291,7 +291,7 @@ export default function Scanner({ allocationId }: { allocationId: string }) {
 function Overlay({ title, body, children, spinner }: { title: string; body: string; children?: React.ReactNode; spinner?: boolean }) {
   return (
     <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-[#0B0F19]/95 p-6 text-center">
-      {spinner && <span aria-hidden className="h-8 w-8 animate-spin rounded-full border-4 border-[#2563EB] border-t-[#CCFF00]" />}
+      {spinner && <span aria-hidden className="h-8 w-8 animate-spin rounded-full border-4 border-[#2563EB] border-t-blue-300" />}
       <h2 className="text-lg font-bold">{title}</h2>
       <p className="max-w-xs text-sm text-slate-300">{body}</p>
       {children}
